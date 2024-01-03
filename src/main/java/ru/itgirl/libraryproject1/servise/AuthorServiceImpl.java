@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AutoServiceImpl implements AuthorService{
+public class AuthorServiceImpl implements AuthorService{
 
     private final AuthorRepository authorRepository;
 
