@@ -10,11 +10,8 @@ import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject1.dto.BookCreateDto;
 import ru.itgirl.libraryproject1.dto.BookDto;
 import ru.itgirl.libraryproject1.dto.BookUpdateDto;
-import ru.itgirl.libraryproject1.dto.GenreDto;
 import ru.itgirl.libraryproject1.model.Book;
-import ru.itgirl.libraryproject1.model.Genre;
 import ru.itgirl.libraryproject1.repository.BookRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,6 +82,12 @@ public class BookServiceImpl implements BookService {
                 .name(bookCreateDto.getName())
                 .genre(bookCreateDto.getGenre())
                 .build();
+    }
+
+    @Override
+    public List<BookDto> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        return books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     private BookDto convertEntityToDto(Book book) {

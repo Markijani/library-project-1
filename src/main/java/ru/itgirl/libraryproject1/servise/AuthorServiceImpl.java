@@ -82,12 +82,20 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.deleteById(id);
     }
 
+    @Override
+    public List<AuthorDto> getAllAuthors() {
+        List<Author> authors = authorRepository.findAll();
+        return authors.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+    }
+
     private Author convertDtoToEntity(AuthorCreateDto authorCreateDto) {
         return Author.builder()
                 .name(authorCreateDto.getName())
                 .surname(authorCreateDto.getSurname())
                 .build();
     }
+
+
 
     private AuthorDto convertEntityToDto(Author author) {
         List<BookDto> bookDtoList = null;
