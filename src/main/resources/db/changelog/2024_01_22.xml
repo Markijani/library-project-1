@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create user table" author="kvitko">
+        <sql>
+            Create table if not exists users (
+            id bigserial PRIMARY KEY,
+            username varchar NOT NULL,
+            role varchar NOT NULL,
+            password varchar NOT NULL
+            );
+
+            CREATE TABLE if not exists user_book (
+            book_id bigint NOT NULL,
+            user_id bigint NOT NULL,
+            FOREIGN KEY (book_id) REFERENCES book (id),
+            FOREIGN KEY (user_id) REFERENCES users (id)
+            );
+
+            Insert into users(username, role, password) values
+            ('user1', 'USER', 'password1'),
+            ('user2', 'USER', 'password2'),
+            ('admin', 'ADMIN', 'password3');
+
+            INSERT INTO user_book (book_id, user_id) values
+            (1, 3),
+            (2, 1),
+            (3, 1);
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>
+
+
